@@ -77,7 +77,7 @@ class SRGanGenerator:
         # send through vgg19
         _, layers = vgg_19(x, is_training=False, reuse=self.reuse_vgg)
         self.reuse_vgg = True
-        return layers[scope + layer]
+        return layers[layer]
 
     def _content_loss(self, y, y_pred):
         """MSE, VGG22, or VGG54"""

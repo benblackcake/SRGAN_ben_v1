@@ -1,0 +1,4 @@
+/results/*
+/Benchmarks
+*.ckpt
+/__pycache__/*

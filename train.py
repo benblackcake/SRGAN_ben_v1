@@ -94,6 +94,7 @@ def main():
         if args.load:
             iteration = int(args.load.split('-')[-1])
             saver.restore(sess, args.load)
+            print(saver)
             print("load_process_DEBUG")
         # Load VGG
         if 'vgg' in args.content_loss:
@@ -101,7 +102,7 @@ def main():
             vgg_saver.restore(sess, args.vgg_weights)
 
         # Train
-        while iteration < args.epoch:
+        while True:
             if iteration % args.log_freq == 0:
                 # Test every log-freq iterations
                 val_error = evaluate_model(g_loss, get_val_batch, sess, 119, args.batch_size)

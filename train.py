@@ -100,7 +100,7 @@ def main():
             vgg_saver.restore(sess, args.vgg_weights)
 
         # Train
-        while iteration < args.epoch:
+        while iteration < int(args.epoch):
             if iteration % args.log_freq == 0:
                 # Test every log-freq iterations
                 val_error = evaluate_model(g_loss, get_val_batch, sess, 119, args.batch_size)
@@ -118,7 +118,7 @@ def main():
                 with open(log_path + '/loss.csv', 'a') as f:
                     f.write('%d, %.15f, %.15f%s\n' % (iteration, val_error, eval_error, log_line))
                 # Save checkpoint
-                saver.save(sess, os.path.join(log_path, 'weights'), global_step=iteration, write_meta_graph=False)
+                saver.save(sess, os.path.join(log_path, 'weights'), global_step=iteration, write_meta_graph=False, max_to_keep=None)
 
             # Train discriminator
             if args.use_gan:

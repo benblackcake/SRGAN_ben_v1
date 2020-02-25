@@ -34,7 +34,7 @@ def main():
     parser.add_argument('--validate-benchmarks', action='store_true',
                         help='If set, validates that the benchmarking metrics are correct for the images provided by the authors of the SRGAN paper.')
     parser.add_argument('--gpu', type=str, default='0', help='Which GPU to use')
-    parser.add_argument('--epoch', type=str, default='1000000', help='How many iterations ')
+    parser.add_argument('--epoch', type=int, default='1000000', help='How many iterations ')
 
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
@@ -84,7 +84,7 @@ def main():
 
         # Load saved weights
         iteration = 0
-        saver = tf.train.Saver(max_to_keep=None)
+        saver = tf.train.Saver()
         # Load generator
         if args.load_gen:
             gen_saver = tf.train.Saver(tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='generator'))
@@ -100,7 +100,7 @@ def main():
             vgg_saver.restore(sess, args.vgg_weights)
 
         # Train
-        while iteration < int(args.epoch):
+        while iteration < args.epoch:
             if iteration % args.log_freq == 0:
                 # Test every log-freq iterations
                 val_error = evaluate_model(g_loss, get_val_batch, sess, 119, args.batch_size)

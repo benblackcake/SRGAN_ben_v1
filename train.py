@@ -79,8 +79,8 @@ def main():
         sess.run(tf.local_variables_initializer())
         sess.run(tf.global_variables_initializer())
         # Start input pipeline thread(s)
-        # coord = tf.train.Coordinator()
-        # threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+        coord = tf.train.Coordinator()
+        threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
         # Load saved weights
         iteration = 0
@@ -138,8 +138,8 @@ def main():
             iteration += 1
 
         # Stop queue threads
-        # coord.request_stop()
-        # coord.join(threads)
+        coord.request_stop()
+        coord.join(threads)
 
 
 if __name__ == "__main__":

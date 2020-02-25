@@ -84,7 +84,7 @@ def main():
 
         # Load saved weights
         iteration = 0
-        saver = tf.train.Saver()
+        saver = tf.train.Saver(max_to_keep=None)
         # Load generator
         if args.load_gen:
             gen_saver = tf.train.Saver(tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='generator'))
@@ -118,7 +118,7 @@ def main():
                 with open(log_path + '/loss.csv', 'a') as f:
                     f.write('%d, %.15f, %.15f%s\n' % (iteration, val_error, eval_error, log_line))
                 # Save checkpoint
-                saver.save(sess, os.path.join(log_path, 'weights'), global_step=iteration, write_meta_graph=False, max_to_keep=None)
+                saver.save(sess, os.path.join(log_path, 'weights'), global_step=iteration, write_meta_graph=False)
 
             # Train discriminator
             if args.use_gan:

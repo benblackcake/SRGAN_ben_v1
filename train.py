@@ -10,7 +10,7 @@ import srgan
 from benchmark import Benchmark
 import os
 import sys
-from utilities import build_inputs, downsample_batch, build_log_dir, preprocess, evaluate_model
+from utilities import input_setup, downsample_batch, build_log_dir, preprocess, evaluate_model
 
 
 def main():
@@ -74,7 +74,7 @@ def main():
 
     with tf.Session() as sess:
         # Build input pipeline
-        get_train_batch, get_val_batch, get_eval_batch = build_inputs(args, sess)
+        get_train_batch, get_val_batch, get_eval_batch = input_setup(args, sess)
         # Initialize
         sess.run(tf.local_variables_initializer())
         sess.run(tf.global_variables_initializer())

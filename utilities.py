@@ -44,7 +44,7 @@ def build_input_pipeline(filenames, batch_size, img_size, random_crop=False, shu
     return image_batch
 
 
-def build_inputs(args, sess):
+def input_setup(args, sess):
     if args.overfit:
         # Overfit to a single image
         train_filenames = np.array(['overfit.png'])

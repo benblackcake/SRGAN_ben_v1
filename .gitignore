@@ -2,3 +2,4 @@
 /Benchmarks
 *.ckpt
 /__pycache__/*
+/.idea/*

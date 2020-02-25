@@ -94,6 +94,7 @@ def main():
         if args.load:
             iteration = int(args.load.split('-')[-1])
             saver.restore(sess, args.load)
+            print("load_process_DEBUG")
         # Load VGG
         if 'vgg' in args.content_loss:
             vgg_saver = tf.train.Saver(tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='vgg_19'))

@@ -38,7 +38,7 @@ def build_input_pipeline(filenames, batch_size, img_size, random_crop=False, shu
     image = process_individual_image(filename_queue.dequeue(), img_size, random_crop)
     image_batch = tf.train.batch([image], batch_size=batch_size,
                                  num_threads=num_threads,
-                                 capacity=100 * batch_size)
+                                 capacity=10 * batch_size)
     return image_batch
 
 

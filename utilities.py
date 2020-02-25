@@ -53,6 +53,8 @@ def build_inputs(args, sess):
     else:
         # Regular dataset
         train_filenames = np.array(glob.glob(os.path.join(args.train_dir, '**', '*.*'), recursive=True))
+        print("__DEBUG__train_filenames")
+        print(train_filenames)
         val_filenames = np.array(glob.glob(os.path.join('Benchmarks', '**', '*_HR.png'), recursive=True))
         eval_indices = np.random.randint(len(train_filenames), size=len(val_filenames))
         eval_filenames = train_filenames[eval_indices[:119]]

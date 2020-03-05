@@ -15,6 +15,8 @@ import glob
 def process_individual_image(filename_queue, img_size, random_crop=False):
     """Individual loading & processing for each image"""
     image_file = tf.read_file(filename_queue)
+    print("__DEBUG__preprocess_image_file")
+    print(image_file)
     image = tf.image.decode_image(image_file, 3)
     if random_crop:
         # for training, take a random crop of the image
@@ -28,6 +30,8 @@ def process_individual_image(filename_queue, img_size, random_crop=False):
         # for testing, always take a center crop of the image
         image = tf.image.resize_image_with_crop_or_pad(image, img_size, img_size)
         image.set_shape((img_size, img_size, 3))
+    print(image)
+
     return image
 
 
@@ -35,7 +39,10 @@ def build_input_pipeline(filenames, batch_size, img_size, random_crop=False, shu
     """Builds a tensor which provides randomly sampled pictures from the list of filenames provided"""
     train_file_list = tf.constant(filenames)
     filename_queue = tf.train.string_input_producer(train_file_list, shuffle=shuffle)
+    print("QUEUE_DEBUG")
+    print(filename_queue.dequeue())
     image = process_individual_image(filename_queue.dequeue(), img_size, random_crop)
+    print([image])
     image_batch = tf.train.batch([image], batch_size=batch_size,
                                  num_threads=num_threads,
                                  capacity=10 * batch_size)
